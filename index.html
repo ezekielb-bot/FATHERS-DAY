@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para kay Tatay! ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: #334155;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 40px 25px;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            line-height: 1.3;
+        }
+        .teaser-text {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        /* Playful interactive message box */
+        .message-box {
+            background-color: #f8fafc;
+            border: 2px dashed #3b82f6;
+            border-radius: 16px;
+            padding: 25px 20px;
+            min-height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #1e293b;
+            margin-bottom: 30px;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+        }
+        .counter {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: -15px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        /* Stylish Playful Buttons */
+        .btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        .btn:active {
+            transform: translateY(1px);
+        }
+        /* Grand Finale Styles */
+        .final-title {
+            font-size: 2.6rem;
+            color: #b91c1c;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 15px;
+        }
+        .final-sub {
+            font-size: 1.3rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .emoji-pop {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 1s infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SCREEN 1: THE INITIAL BAIT -->
+        <div id="page1" class="fade-in">
+            <div class="emoji-pop">👀</div>
+            <h1>May ipapakita ako sa'yo, Tatay...</h1>
+            <p class="teaser-text">Hulaan mo kung ano 'to!</p>
+            <button class="btn" onclick="startSurprise()">Click Me, Dad!</button>
+        </div>
+
+        <!-- SCREEN 2: PLAYFUL MESSAGE REVEALER -->
+        <div id="page2" class="hidden fade-in">
+            <h1>Sandali lang... 🤫</h1>
+            <div class="message-box" id="messageContainer">
+                <!-- Messages will load here via JavaScript -->
+            </div>
+            <div class="counter" id="messageCounter">Message 1 of 3</div>
+            <button class="btn" id="nextBtn" onclick="nextMessage()">Read Next!</button>
+        </div>
+
+        <!-- SCREEN 3: THE FINALE -->
+        <div id="page3" class="hidden fade-in">
+            <div class="emoji-pop">🎉❤️👑</div>
+            <h1 class="final-title">Happy Father's Day, Tatay!</h1>
+            <p class="final-sub">Salamat sa lahat. Mahal na mahal ka namin araw-araw!</p>
+        </div>
+    </div>
+
+    <script>
+        // Your simple Tagalog messages
+        const messages = [
+            "Salamat sa lahat ng sakripisyo at paggabay mo sa amin araw-araw. ✨",
+            "Salamat sa pagiging haligi ng ating tahanan at sa walang sawang pag-unawa. 🏠",
+            "Napakaswerte namin dahil ikaw ang naging tatay namin! Best Tatay sa mundo! 🥇"
+        ];
+        
+        let currentMessageIndex = 0;
+
+        function startSurprise() {
+            document.getElementById('page1').classList.add('hidden');
+            document.getElementById('page2').classList.remove('hidden');
+            showIndividualMessage();
+        }
+
+        function showIndividualMessage() {
+            const container = document.getElementById('messageContainer');
+            const counter = document.getElementById('messageCounter');
+            const button = document.getElementById('nextBtn');
+
+            // Add a little visual kick when text changes
+            container.style.opacity = 0;
+            
+            setTimeout(() => {
+                container.innerText = messages[currentMessageIndex];
+                counter.innerText = `Message ${currentMessageIndex + 1} of ${messages.length}`;
+                container.style.opacity = 1;
+                
+                // If it's the last message, change the button text to build the hype
+                if (currentMessageIndex === messages.length - 1) {
+                    button.innerText = "See the Surprise!";
+                }
+            }, 150);
+        }
+
+        function nextMessage() {
+            if (currentMessageIndex < messages.length - 1) {
+                currentMessageIndex++;
+                showIndividualMessage();
+            } else {
+                // Go to final page
+                document.getElementById('page2').classList.add('hidden');
+                document.getElementById('page3').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
